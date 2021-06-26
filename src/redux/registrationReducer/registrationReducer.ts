@@ -1,13 +1,14 @@
+import {authAPI} from "../../api/auth-api";
+import {Dispatch} from "redux";
 
 export const LOADING = 'authReducer/SET-LOADING' as const;
 export const ERROR = 'authReducer/SET-ERROR' as const;
 export const SUCCESS = 'authReducer/SET-SUCCESS' as const;
 
 
-
 type InitialStateType = {
     error: string
-    loading:boolean
+    loading: boolean
     success:boolean
 }
 
@@ -18,10 +19,10 @@ export const initialState: InitialStateType = {
 }
 
 type PropertiesType<ActionType> = ActionType extends { [key: string]: infer ResponseType } ? ResponseType : never;
-type ActionsType = ReturnType<PropertiesType<typeof authActions>>
+type ActionsType = ReturnType<PropertiesType<typeof registrationActions>>
 
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
 
         case LOADING: {
@@ -47,7 +48,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 }
 
 
-export const authActions = {
+export const registrationActions = {
     errorAC: (error: string) => {
         return ({
             type: ERROR,
@@ -64,12 +65,25 @@ export const authActions = {
             }
         })
     },
-    successAC:(success:boolean) => {
+    successAC: (success: boolean) => {
         return ({
-            type:SUCCESS,
-            payload : {
+            type: SUCCESS,
+            payload: {
                 success
             }
         })
     }
+}
+
+export const RegistrationTC = (email: string, password: string) => async (dispatch: Dispatch) => {
+    dispatch(registrationActions.loadingAC(true))
+    try {
+        const res = await authAPI.registration(email, password)
+        dispatch(registrationActions.successAC(true))
+    } catch (e) {
+        dispatch(registrationActions.errorAC('error'))
+    } finally {
+        dispatch(registrationActions.loadingAC(false))
+    }
+
 }
