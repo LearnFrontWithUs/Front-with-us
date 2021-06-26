@@ -1,0 +1,16 @@
+@import 'variables.module';
+
+@mixin flex($align-items,$justify-content,$direction) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align-items;
+  justify-content: $justify-content;
+}
+@mixin grid ($width,$bg-color) {
+  display: grid;
+  max-width:$width ;
+  grid-template-columns: repeat(12,1fr);
+  grid-gap: 1.2rem;
+  background-color: $bg-color;
+  margin: 0 auto;
+}

@@ -1,0 +1,11 @@
+@import 'src/styles/variables.module';
+@import 'src/styles/mixins.module';
+
+.container {
+  @include grid(100.8rem,'');
+  .box {
+    background-color: #fff;
+    grid-column: 6/9;
+    @include flex (center,center,column);
+  }
+}
