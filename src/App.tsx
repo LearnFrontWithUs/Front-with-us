@@ -1,18 +1,17 @@
 import React from 'react';
 import {Route, Switch } from 'react-router-dom';
 import './App.module.scss';
-import Auth from './components/Main/Authentefication/Auth/Auth';
 import Profile from './components/Main/Profile/Profile';
 import {PageNotFounded} from './components/Main/PageNotFounded/PageNotFounded';
-import Login from './components/Main/Authentefication/Login/Login';
 import Header from './components/Header/Header';
 import { Registration } from './components/registration/Registration';
+import {Login} from "./components/login/Login";
 
 const App = () => {
 
     const PATH = {
         AUTH: '/auth',
-        LOGIN: 'auth/login',
+        LOGIN: '/login',
         PROFILE: '/profile',
         REGISTRATION:'/registration',
     }
@@ -21,7 +20,6 @@ const App = () => {
         <div className="App">
             <Header/>
             <Switch>
-                <Route path={PATH.AUTH} render={() => <Auth/>}/>
                 <Route path={PATH.PROFILE} render={() => <Profile/>}/>
                 <Route path={PATH.LOGIN} render={() => <Login/>}/>
                 <Route path={PATH.REGISTRATION} render={() => <Registration/>}/>
