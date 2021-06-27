@@ -1,0 +1,12 @@
+.default {
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0.5rem;
+  border-radius: 5rem;
+  background-color: #21268F;
+}
+.secondary {
+  @extend .default;
+  color: blue;
+  background-color: #2D2E46;
+}

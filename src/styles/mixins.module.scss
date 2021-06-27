@@ -10,7 +10,7 @@
   display: grid;
   max-width:$width ;
   grid-template-columns: repeat(12,1fr);
-  grid-gap: 1.2rem;
+  grid-column-gap: 1.2rem;
   background-color: $bg-color;
   margin: 0 auto;
 }
