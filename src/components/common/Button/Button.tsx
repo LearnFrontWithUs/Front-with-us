@@ -3,7 +3,7 @@ import styles from './Button.module.scss'
 import classNames from "classnames";
 type buttonPropsType = {
     secondary?:boolean
-    type:'submit'
+    type:'submit' | 'button'
 }
 export const Button:FC<buttonPropsType> = ({children,secondary,type}) => {
     return (
