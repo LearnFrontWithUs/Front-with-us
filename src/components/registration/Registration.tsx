@@ -1,5 +1,5 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import styles from './Registration.module.scss'
 import {RegistrationTC} from '../../redux/registrationReducer/registrationReducer';
 import {
@@ -11,7 +11,8 @@ import {
 import {useFormik} from 'formik';
 import {FormikCustomInput} from '../common/formikCustombutton/formikCustomInput';
 import {Button} from '../common/Button/Button';
-
+import {Redirect} from 'react-router-dom';
+import {AppStateType} from '../../redux/store';
 
 
 type FormikErrorType = {
@@ -21,7 +22,7 @@ type FormikErrorType = {
 }
 export const Registration = () => {
     const dispatch = useDispatch()
-
+    const isLoggedIn = useSelector((state: AppStateType) => state.login.isLoggedIn)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -51,6 +52,9 @@ export const Registration = () => {
             formik.resetForm()
         }
     })
+    if (isLoggedIn === true) {
+        return <Redirect to={'/profile'}/>
+    }
     return (
         <div className={styles.container}>
             <div className={styles.box}>
@@ -90,8 +94,8 @@ export const Registration = () => {
                         <FormHelperText id="passwordConfirm">{formik.errors.password}</FormHelperText>}
                     </FormControl>
                     <div className={styles.btnContainer}>
-                        <Button type={'button'}>Cancel</Button>
-                        <Button type={'submit'} secondary>Register</Button>
+                        <Button type={'submit'} secondary>Cancel</Button>
+                        <Button type={'submit'}>Register</Button>
                     </div>
                 </form>
 
