@@ -1,13 +1,13 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import styles from './Login.module.scss'
-import {useFormik} from "formik";
-import {FormControl, FormControlLabel, FormHelperText, Input, InputLabel} from "@material-ui/core";
-import { NavLink } from 'react-router-dom';
-import {FormikCustomInput} from "../common/formikCustombutton/formikCustomInput";
-import {Button} from "../common/Button/Button";
-import {loginTC} from "../../redux/loginReducer/loginReducer";
-
+import {useFormik} from 'formik';
+import {FormControl, FormControlLabel, FormHelperText, Input, InputLabel} from '@material-ui/core';
+import {NavLink, Redirect} from 'react-router-dom';
+import {FormikCustomInput} from '../common/formikCustombutton/formikCustomInput';
+import {Button} from '../common/Button/Button';
+import {loginTC} from '../../redux/loginReducer/loginReducer';
+import {AppStateType} from '../../redux/store';
 
 
 type FormikErrorType = {
@@ -16,11 +16,13 @@ type FormikErrorType = {
     rememberMe?: boolean
 }
 type FormPropsType = {
-    styles:any
+    styles: any
 
 }
 export const Login = () => {
     const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state: AppStateType) => state.login.isLoggedIn)
+
     const formik = useFormik({
         initialValues: {
             email: 'learnfrontwithus@gmail.com',
@@ -42,10 +44,14 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            dispatch(loginTC(formik.values.email,formik.values.password,formik.values.rememberMe))
+            dispatch(loginTC(formik.values.email, formik.values.password, formik.values.rememberMe))
             formik.resetForm()
         }
     })
+
+    if (isLoggedIn === true) {
+        return <Redirect to={'/profile'}/>
+    }
     return (
         <div className={styles.container}>
             <div className={styles.box}>
@@ -57,31 +63,32 @@ export const Login = () => {
                         <InputLabel htmlFor="email">Email</InputLabel>
                         <Input
                             {...formik.getFieldProps('email')}
-                            id={"email"}
+                            id={'email'}
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             aria-describedby={'email-error'}/>
-                        {!!formik.errors.email && <FormHelperText id="email-error">{formik.errors.email}</FormHelperText>}
+                        {!!formik.errors.email &&
+                        <FormHelperText id="email-error">{formik.errors.email}</FormHelperText>}
                     </FormControl>
                     <FormControl {...formik.getFieldProps('password')}
                                  error={!!formik.errors.password}
                                  className={styles.controlInputs}>
-                        <InputLabel htmlFor={"password"}>Password</InputLabel>
+                        <InputLabel htmlFor={'password'}>Password</InputLabel>
                         <FormikCustomInput
                             color={'primary'}
-                            id={"password"}
+                            id={'password'}
                             onChange={formik.handleChange}
                             value={formik.values.password}
                             position='end'/>
                         {!!formik.errors.password &&
                         <FormHelperText id="password-error">{formik.errors.password}</FormHelperText>}
                     </FormControl>
-                        <NavLink className={styles.navLinkForgotBox} to={'/restore-password'}>
-                            Forgot Password
-                        </NavLink>
-                        <Button type={'submit'}>
-                            Login
-                        </Button>
+                    <NavLink className={styles.navLinkForgotBox} to={'/restore-password'}>
+                        Forgot Password
+                    </NavLink>
+                    <Button type={'submit'}>
+                        Login
+                    </Button>
                 </form>
                 <p>Don’t have an account?</p>
                 <NavLink to={'/restore-password'}>

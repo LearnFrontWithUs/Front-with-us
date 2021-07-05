@@ -1,13 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 export const Header = () => {
     const links = [
-        {url:'login',title:'Login'},
-        {url:'registration',title:'Registration'},
-        {url:'restore-pass',title:'Restore pass'},
+        {url: 'login', title: 'Login'},
+        {url: 'registration', title: 'Registration'},
+        {url: 'restore-pass', title: 'Restore pass'},
     ]
-    let navlinks  = links.map(link => {
+    let navlinks = links.map(link => {
         return <li>
             <NavLink to={`/${link.url}`}>
                 <span>{link.title}</span>
@@ -15,9 +15,11 @@ export const Header = () => {
         </li>
     })
     return (
-        <ul >
-            {navlinks}
-        </ul>
+        <div>
+            <ul>
+                {navlinks}
+            </ul>
+        </div>
     )
 }
 

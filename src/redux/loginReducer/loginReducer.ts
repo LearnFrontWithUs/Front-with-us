@@ -22,7 +22,7 @@ export const initialState: InitialStateType = {
 type PropertiesType<ActionType> = ActionType extends { [key: string]: infer ResponseType } ? ResponseType : never;
 type ActionsType = ReturnType<PropertiesType<typeof authActions>>
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case LOGIN_FLOW: {
             return ({

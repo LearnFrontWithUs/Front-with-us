@@ -5,17 +5,48 @@
   @include grid(100.8rem, '');
 
   .box {
-    background-color: #fff;
-    grid-column: 6/9;
-    border-radius: 0.8rem;
     @include flex('', '', column);
+    background-color: white;
+    grid-column: 5/span 4;
     padding: 2.5rem 3.3rem 3rem 3.3rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    line-height: 1;
+    overflow: hidden;
+    //background-color: #fff;
+    //grid-column: 6/9;
+    //border-radius: 0.8rem;
+    //width: 41.3rem;
+    //height: 51.3rem;
+    //@include flex('', '', column);
+    //padding: 2.5rem 3.3rem 3rem 3.3rem;
     h2,h3{
       color:$primary-title;
       text-align: center;
     }
+    form {
+      @include flex('', '', column);
+
+      input {
+        font-size: 1.6rem;
+      }
+    }
     h2 {
       margin-bottom:3.2rem;
+    }
+    .btnContainer{
+      @include flex('', '', row);
+      padding: 8.4rem 3.3rem 6rem 3.3rem;
+
+    }
+    Button{
+      text-align: center;
+      border-radius:3rem;
+      border: none;
+      padding: 1rem;
+      margin: 1.8rem;
     }
   }
 }

@@ -8,7 +8,6 @@ import { Registration } from './components/registration/Registration';
 import {Login} from "./components/login/Login";
 
 const App = () => {
-
     const PATH = {
         AUTH: '/auth',
         LOGIN: '/login',
